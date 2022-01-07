@@ -20,27 +20,27 @@ const App: React.FC = () => {
     {
       title: "ACTION MOVIES",
       fetchUrl: MOVIEAPI.fetchActionMovies,
-      size: "large",
+      size: "middle",
     },
     {
       title: "COMEDY MOVIES",
       fetchUrl: MOVIEAPI.fetchComedyMovies,
-      size: "large",
+      size: "middle",
     },
     {
       title: "HORROR MOVIES",
       fetchUrl: MOVIEAPI.fetchHorrorMovies,
-      size: "large",
+      size: "middle",
     },
     {
       title: "ROMANCE MOVIES",
       fetchUrl: MOVIEAPI.fetchRomanceMovies,
-      size: "large",
+      size: "middle",
     },
     {
       title: "DOCUMENT MOVIES",
       fetchUrl: MOVIEAPI.fetchDocumentMovies,
-      size: "large",
+      size: "middle",
     },
   ];
 
