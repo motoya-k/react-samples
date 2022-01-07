@@ -9,7 +9,7 @@ const baseURL = "https://image.tmdb.org/t/p/original";
 
 type Size = "large" | "middle";
 
-type Props = {
+export type Props = {
   title: string;
   fetchUrl: string;
   size?: Size;
