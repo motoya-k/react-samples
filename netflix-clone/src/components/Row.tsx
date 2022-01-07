@@ -24,8 +24,6 @@ export const Row: React.FC<Props> = ({ title, fetchUrl, size }: Props) => {
     fetchData();
   }, [fetchUrl]);
 
-  console.debug(movies);
-
   return (
     <div className="Row">
       <h2>{title}</h2>
