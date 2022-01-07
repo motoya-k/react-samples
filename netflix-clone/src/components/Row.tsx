@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { $axios } from "src/plugins/axios";
 import { Movie } from "src/types";
-import "src/components/Row.scss";
+import { MOVIEAPI } from "src/plugins/apiConsts";
+import YouTube from "react-youtube";
+import "./Row.scss";
 
 const baseURL = "https://image.tmdb.org/t/p/original";
 
@@ -13,8 +15,25 @@ type Props = {
   size?: Size;
 };
 
+type Options = {
+  height: string;
+  width: string;
+  playerVars: {
+    autoplay: 0 | 1 | undefined;
+  };
+};
+
+const options: Options = {
+  height: "390",
+  width: "640",
+  playerVars: {
+    autoplay: 1,
+  },
+};
+
 export const Row: React.FC<Props> = ({ title, fetchUrl, size }: Props) => {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -24,11 +43,20 @@ export const Row: React.FC<Props> = ({ title, fetchUrl, size }: Props) => {
     fetchData();
   }, [fetchUrl]);
 
+  const clickHandler = async (movie: Movie) => {
+    if (trailerUrl) {
+      setTrailerUrl(null);
+    } else {
+      let res = await $axios.get(MOVIEAPI.fetchTraier(movie.id));
+      setTrailerUrl(res.data.results[0]?.key);
+    }
+  };
+
   return (
     <div className="Row">
       <h2>{title}</h2>
       <div className="Row-posters">
-        {movies.map((movie, i) => (
+        {movies.map((movie) => (
           <img
             className={
               size === "large" ? "Row-poster-large Row-poster" : "Row-poster"
@@ -38,9 +66,11 @@ export const Row: React.FC<Props> = ({ title, fetchUrl, size }: Props) => {
             }`}
             alt={movie.name}
             key={movie.id}
+            onClick={() => clickHandler(movie)}
           />
         ))}
       </div>
+      {trailerUrl && <YouTube videoId={trailerUrl} opts={options} />}
     </div>
   );
 };
