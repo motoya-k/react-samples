@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+
+  smtp:
+    image: juanluisbaptiste/postfix
+    container_name: gmailclone-smtp
+    ports:
+      - "25:25"
+    environment:
+      SMTP_SERVER: smtp.example.com
+      SMTP_USERNAME: motoyannn@example.com 
+      SMTP_PASSWORD: password 
+      SERVER_HOSTNAME: helpdesk.mycompany.com 
+      
